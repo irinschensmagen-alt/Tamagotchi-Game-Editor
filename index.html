@@ -13,7 +13,13 @@
 
 <label>🧸 Игры / Игрушки</label>
 <textarea id="toysInput" placeholder="ball, doll, puzzle"></textarea>
+function parseInput(id){
 
+let text = document.getElementById(id).value
+
+return text.split(",").map(x => x.trim())
+
+}
 <label>🎨 Хобби</label>
 <textarea id="hobbyInput" placeholder="drawing, music, chess"></textarea>
 
@@ -21,3 +27,122 @@
 <textarea id="activityInput" placeholder="run, jump, swim"></textarea>
 
 </div>
+function loadEducationContent(){
+
+let food = parseInput("foodInput")
+let clothes = parseInput("clothesInput")
+let weather = parseInput("weatherInput")
+let toys = parseInput("toysInput")
+let hobby = parseInput("hobbyInput")
+let activity = parseInput("activityInput")
+
+console.log(food,clothes,weather,toys,hobby,activity)
+
+}
+<h3>🖼 Изображения</h3>
+
+<label>Загрузить картинку</label>
+<input type="file" id="imageUpload">
+
+<label>Картинка по ссылке</label>
+<input type="text" id="imageURL">
+
+<label>Фон</label>
+<input type="file" id="backgroundUpload">
+document.getElementById("backgroundUpload").addEventListener("change",function(e){
+
+let reader = new FileReader()
+
+reader.onload = function(){
+
+document.body.style.backgroundImage = "url("+reader.result+")"
+
+}
+
+reader.readAsDataURL(e.target.files[0])
+
+})
+<h3>🔊 Аудио</h3>
+
+<input type="file" id="audioUpload">
+<audio id="audioPlayer" controls></audio>
+audioUpload.onchange = function(){
+
+let file = this.files[0]
+let url = URL.createObjectURL(file)
+
+audioPlayer.src = url
+
+}
+<h3>🎥 Видео</h3>
+
+<input type="file" id="videoUpload">
+<video id="videoPlayer" width="300" controls></video>
+videoUpload.onchange = function(){
+
+let file = this.files[0]
+let url = URL.createObjectURL(file)
+
+videoPlayer.src = url
+
+}
+<h3>✏ Генератор текста</h3>
+
+<textarea id="textGenerator"></textarea>
+
+<button onclick="generateText()">Сгенерировать</button>
+
+<div id="textOutput"></div>
+function generateText(){
+
+let text = document.getElementById("textGenerator").value
+
+document.getElementById("textOutput").innerHTML =
+
+"<div class='infobox'>"+text+"</div>"
+
+}
+<h3>😀 Смайлики</h3>
+
+<select id="emojiSelect">
+
+<option>😀</option>
+<option>🐱</option>
+<option>⭐</option>
+<option>🎮</option>
+<option>📚</option>
+
+</select>
+
+<button onclick="addEmoji()">Добавить</button>
+
+<div id="emojiOutput"></div>
+function addEmoji(){
+
+let emoji = document.getElementById("emojiSelect").value
+
+emojiOutput.innerHTML += emoji
+
+}
+<h3>🐱 Рост Анфисы</h3>
+
+<input type="file" multiple id="anfisaImages">
+
+<div id="anfisaGallery"></div>
+anfisaImages.onchange = function(){
+
+let files = this.files
+
+for(let file of files){
+
+let img = document.createElement("img")
+
+img.src = URL.createObjectURL(file)
+
+img.style.width="120px"
+
+anfisaGallery.appendChild(img)
+
+}
+
+}
