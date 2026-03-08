@@ -1,41 +1,218 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anfisa TMG</title>
-  <style>
-    *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4efe8;color:#18181b}button,input{font:inherit}.game{min-height:100vh;display:grid;grid-template-columns:320px 1fr;background:linear-gradient(135deg,#f8fafc,#ede9fe)}.panel{padding:18px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:12px}.brand{font-size:28px;font-weight:700;letter-spacing:.04em}.mini{font-size:13px;color:#52525b}.topic{border:1px solid #e4e4e7;border-radius:14px;padding:10px 12px;background:#fff}.topic strong{display:block;margin-bottom:6px}.stage{display:flex;align-items:center;justify-content:center;position:relative;padding:32px}.pet{width:120px;height:120px;border-radius:32px;background:radial-gradient(circle at 30% 30%,#fef3c7,#f59e0b);box-shadow:0 18px 50px rgba(15,23,42,.16);position:relative;transition:.35s ease}.pet::after{content:'Лента';position:absolute;left:50%;bottom:-16px;transform:translateX(-50%);padding:6px 10px;background:#111827;color:#fff;border-radius:999px;font-size:12px}.hud{position:absolute;top:20px;right:20px;display:flex;gap:8px}.hud span{padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.88);font-size:12px}.task{max-width:420px;background:rgba(255,255,255,.92);padding:18px;border-radius:20px;position:absolute;left:24px;bottom:24px}.task input{width:100%;margin-top:10px;padding:10px 12px;border:1px solid #d4d4d8;border-radius:12px}.row{display:flex;gap:8px;margin-top:10px}.row button{border:0;border-radius:12px;padding:10px 12px;cursor:pointer}.ok{background:#18181b;color:#fff}.bad{background:#e4e4e7;color:#18181b}.trace{position:absolute;bottom:36px;right:28px;font-size:14px;padding:8px 10px;background:rgba(255,255,255,.92);border-radius:999px}.villain{position:absolute;top:24px;left:24px;width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,#fda4af,#fb7185);display:none}@media (max-width:900px){.game{grid-template-columns:1fr}.stage{min-height:72vh;padding:20px}.task{left:20px;right:20px;bottom:20px;max-width:none}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор Тамагочи</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .editor-section { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; }
+        input, textarea, select { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        #generated-code { margin-top: 20px; height: 200px; }
+    </style>
 </head>
 <body>
-  <div class="game">
-    <aside class="panel">
-      <div class="brand">Anfisa TMG</div>
-      <div class="mini">Анфиса | RU</div>
-      <div class="topic"><strong>Тема 1</strong><span>атом, молекула, формула, реакция</span></div><div class="topic"><strong>Тема 2</strong><span>sin, cos, tg, угол, радиан</span></div><div class="topic"><strong>Тема 3</strong><span>velocity, force, energy, mass</span></div><div class="topic"><strong>Тема 4</strong><span>площадь, объем, теорема, график</span></div><div class="topic"><strong>Тема 5</strong><span>N, O, H2O, CO2, NaCl</span></div><div class="topic"><strong>Тема 6</strong><span>код, алгоритм, цикл, функция</span></div>
-      <div class="topic"><strong>Следы</strong><span>Животное</span></div>
-      <div class="topic"><strong>Генерация</strong><span>СМС, текст, инфографика</span></div>
-    </aside>
-    <main class="stage">
-      <div class="villain" title="Щекотуха"></div>
-      <div class="hud">
-        <span>Рост 18%</span>
-        <span>Этап 1/5</span>
-        <span>Ошибки 0</span>
-      </div>
-      <div class="pet"></div>
-      <div class="trace">Животное: 0</div>
-      <section class="task">
-        <div><strong>Анфиса</strong> просит выполнить задание.</div>
-        <div class="mini" style="margin-top:6px">Введите или проверьте элемент: атом</div>
-        <input placeholder="Ответ" />
-        <div class="row">
-          <button class="ok" type="button">Верно</button>
-          <button class="bad" type="button">Ошибка</button>
-        </div>
-      </section>
-    </main>
-  </div>
+    <h1>Редактор Тамагочи</h1>
+
+    <div class="editor-section">
+        <label for="language">Язык:</label>
+        <select id="language">
+            <option value="ru">Русский</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+            <option value="it">Italiano</option>
+            <option value="zh">中文</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+        </select>
+    </div>
+
+    <div class="editor-section">
+        <label for="theme1">Тема 1 (слова/фразы/формулы через запятую):</label>
+        <textarea id="theme1" rows="2"></textarea>
+    </div>
+
+    <div class="editor-section">
+        <label for="theme2">Тема 2:</label>
+        <textarea id="theme2" rows="2"></textarea>
+    </div>
+
+    <div class="editor-section">
+        <label for="theme3">Тема 3:</label>
+        <textarea id="theme3" rows="2"></textarea>
+    </div>
+
+    <div class="editor-section">
+        <label for="theme4">Тема 4:</label>
+        <textarea id="theme4" rows="2"></textarea>
+    </div>
+
+    <div class="editor-section">
+        <label for="theme5">Тема 5:</label>
+        <textarea id="theme5" rows="2"></textarea>
+    </div>
+
+    <div class="editor-section">
+        <label for="theme6">Тема 6:</label>
+        <textarea id="theme6" rows="2"></textarea>
+    </div>
+
+    <div class="editor-section">
+        <label for="tracks">Следы:</label>
+        <select id="tracks">
+            <option value="animal">Животных</option>
+            <option value="human">Человека</option>
+            <option value="robot">Робота</option>
+            <option value="monster">Монстра</option>
+        </select>
+    </div>
+
+    <div class="editor-section">
+        <label for="villain-image">Фотография отрицательного героя:</label>
+        <input type="file" id="villain-image" accept="image/*">
+    </div>
+
+    <div class="editor-section">
+        <label for="images-local">Картинки/гиф/символы/стикеры/смайлы с компьютера:</label>
+        <input type="file" id="images-local" accept="image/*, .gif" multiple>
+    </div>
+
+    <div class="editor-section">
+        <label for="images-url">Картинки/гиф/символы/стикеры/смайлы по ссылке:</label>
+        <input type="text" id="images-url" placeholder="Введите URL">
+    </div>
+
+    <div class="editor-section">
+        <label for="audio">Звуки/аудио:</label>
+        <input type="file" id="audio" accept="audio/*" multiple>
+    </div>
+
+    <div class="editor-section">
+        <label for="sms-generator">Генерация SMS/текста/инфографики:</label>
+        <textarea id="sms-generator" rows="4"></textarea>
+    </div>
+
+    <div class="editor-section">
+        <label for="background">Фон игры:</label>
+        <input type="file" id="background" accept="image/*">
+    </div>
+
+    <div class="editor-section">
+        <label for="hero-images">Изображения героев (Анфиса.png и т.д.):</label>
+        <input type="file" id="hero-images" accept="image/*" multiple>
+    </div>
+
+    <button onclick="generateCode()">Генерировать код</button>
+
+    <div class="editor-section">
+        <label for="generated-code">Сгенерированный код (Iframe для Genially.com и браузеров):</label>
+        <textarea id="generated-code" readonly></textarea>
+    </div>
+
+    <script>
+        function generateCode() {
+            const language = document.getElementById('language').value;
+            const themes = [];
+            for (let i = 1; i <= 6; i++) {
+                themes.push(document.getElementById(`theme${i}`).value.split(',').map(t => t.trim()));
+            }
+            const tracks = document.getElementById('tracks').value;
+            const villainImage = document.getElementById('villain-image').files[0] ? URL.createObjectURL(document.getElementById('villain-image').files[0]) : '';
+            const imagesLocal = Array.from(document.getElementById('images-local').files).map(f => URL.createObjectURL(f));
+            const imagesUrl = document.getElementById('images-url').value;
+            const audioFiles = Array.from(document.getElementById('audio').files).map(f => URL.createObjectURL(f));
+            const smsText = document.getElementById('sms-generator').value;
+            const background = document.getElementById('background').files[0] ? URL.createObjectURL(document.getElementById('background').files[0]) : '';
+            const heroImages = Array.from(document.getElementById('hero-images').files).map(f => URL.createObjectURL(f));
+
+            // Логика роста: от младенца до взрослой кошки на основе правильных ответов
+            const growthStages = ['baby.png', 'kitten.png', 'adult.png']; // Пример стадий, использовать heroImages
+            const accessories = ['collar.png', 'cap.png', 'bag.png']; // Аксессуары
+
+            // Механика: сигналы, SMS, задания из тем, ошибки -> следы -> щекотуха
+            // Мир: домик с локациями (кухня, спальня и т.д.)
+
+            // Генерация базового HTML/JS кода игры
+            const gameCode = `
+<!DOCTYPE html>
+<html lang="${language}">
+<head>
+    <meta charset="UTF-8">
+    <title>Тамагочи</title>
+    <style>
+        body { background-image: url('${background}'); background-size: cover; }
+        #tamagotchi { width: 200px; height: 200px; background: url('${heroImages[0] || 'Анфиса.png'}'); position: relative; }
+        .accessory { position: absolute; /* стили для аксессуаров */ }
+        #sms { margin-top: 20px; }
+        #task { margin-top: 20px; }
+        #tracks { display: none; background: url('${tracks}.png'); }
+        #villain { display: none; background: url('${villainImage}'); }
+    </style>
+</head>
+<body>
+    <div id="tamagotchi"></div>
+    <div id="sms">${smsText}</div>
+    <div id="task">Задание: ${themes.flat().join(' или ')}</div>
+    <input type="text" id="answer">
+    <button onclick="checkAnswer()">Ответить</button>
+    <div id="tracks"></div>
+    <div id="villain"></div>
+    <!-- Локации: select для выбора -->
+    <select id="location">
+        <option>Кухня</option>
+        <option>Спальня</option>
+        <!-- Другие локации -->
+    </select>
+    <!-- Изображения: ${imagesLocal.map(url => `<img src="${url}">`).join('')} -->
+    <img src="${imagesUrl}">
+    <!-- Аудио: -->
+    ${audioFiles.map(url => `<audio src="${url}"></audio>`).join('')}
+    <script>
+        let growthLevel = 0;
+        let errors = 0;
+        let currentAccessory = 0;
+        const correctAnswers = ${JSON.stringify(themes.flat())};
+        function checkAnswer() {
+            const answer = document.getElementById('answer').value.trim();
+            if (correctAnswers.includes(answer)) {
+                growthLevel++;
+                errors = 0;
+                document.getElementById('tamagotchi').style.backgroundImage = \`url('\${growthStages[growthLevel % growthStages.length]}')\`;
+                const acc = document.createElement('div');
+                acc.className = 'accessory';
+                acc.style.backgroundImage = \`url('\${accessories[currentAccessory++ % accessories.length]}')\`;
+                document.getElementById('tamagotchi').appendChild(acc);
+                // Воспроизвести звук успеха
+            } else {
+                errors++;
+                if (errors === 1) {
+                    document.getElementById('tracks').style.display = 'block';
+                } else if (errors >= 2) {
+                    document.getElementById('villain').style.display = 'block';
+                    // Анимация щекотки
+                }
+            }
+            // Сигналы и SMS генерируются случайно
+            setTimeout(() => {
+                document.getElementById('sms').innerText = 'Мне нужно: ' + ['еда', 'сон', 'игра'][Math.floor(Math.random() * 3)];
+                // Аудио сигнал
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
+            `;
+
+            // Iframe для Genially или браузера
+            const iframeCode = `<iframe srcdoc="${encodeURIComponent(gameCode)}" width="800" height="600" frameborder="0"></iframe>`;
+
+            document.getElementById('generated-code').value = iframeCode;
+        }
+    </script>
 </body>
 </html>
