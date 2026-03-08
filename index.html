@@ -1,242 +1,41 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактор Тамагочи: Кошка Анфиса</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        h1, h2, h3 { color: #2c3e50; }
-        .concept-box {
-            background: #eef2f3;
-            padding: 15px;
-            border-left: 5px solid #ff9a9e;
-            border-radius: 5px;
-            margin-bottom: 25px;
-        }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        label { font-weight: bold; display: block; margin-top: 15px; margin-bottom: 5px; color: #34495e; }
-        textarea, input[type="text"], input[type="file"], select {
-            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-family: inherit;
-        }
-        textarea { resize: vertical; min-height: 80px; }
-        button {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            border: none; padding: 10px 20px; color: #333; font-weight: bold;
-            border-radius: 8px; cursor: pointer; transition: 0.3s; margin-top: 10px;
-        }
-        button:hover { filter: brightness(0.9); transform: translateY(-2px); }
-        .preview-box {
-            margin-top: 10px; padding: 10px; border: 1px dashed #aaa; border-radius: 8px; min-height: 50px; background: #fff;
-        }
-        .gallery img { width: 100px; height: 100px; object-fit: cover; margin: 5px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        audio, video { width: 100%; margin-top: 10px; border-radius: 8px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anfisa TMG</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4efe8;color:#18181b}button,input{font:inherit}.game{min-height:100vh;display:grid;grid-template-columns:320px 1fr;background:linear-gradient(135deg,#f8fafc,#ede9fe)}.panel{padding:18px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:12px}.brand{font-size:28px;font-weight:700;letter-spacing:.04em}.mini{font-size:13px;color:#52525b}.topic{border:1px solid #e4e4e7;border-radius:14px;padding:10px 12px;background:#fff}.topic strong{display:block;margin-bottom:6px}.stage{display:flex;align-items:center;justify-content:center;position:relative;padding:32px}.pet{width:120px;height:120px;border-radius:32px;background:radial-gradient(circle at 30% 30%,#fef3c7,#f59e0b);box-shadow:0 18px 50px rgba(15,23,42,.16);position:relative;transition:.35s ease}.pet::after{content:'Лента';position:absolute;left:50%;bottom:-16px;transform:translateX(-50%);padding:6px 10px;background:#111827;color:#fff;border-radius:999px;font-size:12px}.hud{position:absolute;top:20px;right:20px;display:flex;gap:8px}.hud span{padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.88);font-size:12px}.task{max-width:420px;background:rgba(255,255,255,.92);padding:18px;border-radius:20px;position:absolute;left:24px;bottom:24px}.task input{width:100%;margin-top:10px;padding:10px 12px;border:1px solid #d4d4d8;border-radius:12px}.row{display:flex;gap:8px;margin-top:10px}.row button{border:0;border-radius:12px;padding:10px 12px;cursor:pointer}.ok{background:#18181b;color:#fff}.bad{background:#e4e4e7;color:#18181b}.trace{position:absolute;bottom:36px;right:28px;font-size:14px;padding:8px 10px;background:rgba(255,255,255,.92);border-radius:999px}.villain{position:absolute;top:24px;left:24px;width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,#fda4af,#fb7185);display:none}@media (max-width:900px){.game{grid-template-columns:1fr}.stage{min-height:72vh;padding:20px}.task{left:20px;right:20px;bottom:20px;max-width:none}}
+  </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>🐱 Редактор Тамагочи: Кошка Анфиса</h1>
-    
-    <div class="concept-box">
-        <strong>Концепт:</strong> Образовательный симулятор для изучения сильных глаголов немецкого языка (A1). <br>
-        <strong>Герой:</strong> Анфиса. Растет при правильных ответах. Ошибки вызывают "Мышь-щекотуху" и "грязные лапы".<br>
-        <strong>Hard Mode:</strong> Коварные изменения корня (e → i/ie, a → ä, au → äu). Цель: уровень Профи (брейк-данс в золотой кепке!).
-    </div>
-
-    <div class="grid-2">
-        <div>
-            <h2>📚 Словари и Формулы (ввод через запятую)</h2>
-            
-            <label>1) 🍎 Еда</label>
-            <textarea id="foodInput" placeholder="essen (isst), fressen (frisst), Fisch, Milch, E=mc^2"></textarea>
-
-            <label>2) 👗 Одежда. Обувь. Аксессуары</label>
-            <textarea id="clothesInput" placeholder="die Mütze, tragen (trägt), золотая кепка"></textarea>
-
-            <label>3) 🌦 Времена года. Погода</label>
-            <textarea id="weatherInput" placeholder="der Winter, es schneit, fallen (fällt)"></textarea>
-
-            <label>4) 🧸 Игры. Игрушки</label>
-            <textarea id="toysInput" placeholder="fangen (fängt), Сверхзвуковой свисток, Мышь-щекотуха"></textarea>
-
-            <label>5) 🎨 Хобби</label>
-            <textarea id="hobbyInput" placeholder="lesen (liest), брейк-данс"></textarea>
-
-            <label>6) 🏃 Активность</label>
-            <textarea id="activityInput" placeholder="laufen (läuft), schlafen (schläft), H2O"></textarea>
+  <div class="game">
+    <aside class="panel">
+      <div class="brand">Anfisa TMG</div>
+      <div class="mini">Анфиса | RU</div>
+      <div class="topic"><strong>Тема 1</strong><span>атом, молекула, формула, реакция</span></div><div class="topic"><strong>Тема 2</strong><span>sin, cos, tg, угол, радиан</span></div><div class="topic"><strong>Тема 3</strong><span>velocity, force, energy, mass</span></div><div class="topic"><strong>Тема 4</strong><span>площадь, объем, теорема, график</span></div><div class="topic"><strong>Тема 5</strong><span>N, O, H2O, CO2, NaCl</span></div><div class="topic"><strong>Тема 6</strong><span>код, алгоритм, цикл, функция</span></div>
+      <div class="topic"><strong>Следы</strong><span>Животное</span></div>
+      <div class="topic"><strong>Генерация</strong><span>СМС, текст, инфографика</span></div>
+    </aside>
+    <main class="stage">
+      <div class="villain" title="Щекотуха"></div>
+      <div class="hud">
+        <span>Рост 18%</span>
+        <span>Этап 1/5</span>
+        <span>Ошибки 0</span>
+      </div>
+      <div class="pet"></div>
+      <div class="trace">Животное: 0</div>
+      <section class="task">
+        <div><strong>Анфиса</strong> просит выполнить задание.</div>
+        <div class="mini" style="margin-top:6px">Введите или проверьте элемент: атом</div>
+        <input placeholder="Ответ" />
+        <div class="row">
+          <button class="ok" type="button">Верно</button>
+          <button class="bad" type="button">Ошибка</button>
         </div>
-
-        <div>
-            <h2>🖼 Медиа и Ресурсы</h2>
-
-            <label>7) Фон игры (URL или Файл)</label>
-            <input type="text" id="bgUrl" placeholder="https://example.com/изометрический-домик.jpg" oninput="changeBgFromUrl()">
-            <input type="file" id="bgUpload" accept="image/*">
-
-            <label>8) 🔊 Аудио (Звуки, Музыка)</label>
-            <input type="text" id="audioUrl" placeholder="URL звука (SOS, свисток)" oninput="loadAudioUrl()">
-            <input type="file" id="audioUpload" accept="audio/*">
-            <audio id="audioPlayer" controls></audio>
-
-            <label>9) 🎥 Видео</label>
-            <input type="text" id="videoUrl" placeholder="URL видео (Финальный танец)" oninput="loadVideoUrl()">
-            <input type="file" id="videoUpload" accept="video/*">
-            <video id="videoPlayer" controls></video>
-
-            <label>12) 🐱 Рост Анфисы (Загрузка изображений этапов)</label>
-            <input type="file" id="anfisaImages" multiple accept="image/*">
-            <div id="anfisaGallery" class="gallery preview-box"></div>
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="grid-2">
-        <div>
-            <h2>✏ Генераторы контента</h2>
-            
-            <label>10) Генератор СМС, текста, инфографики (SOS-сигналы)</label>
-            <textarea id="textGenerator" placeholder="Анфиса пишет: 'Ich schlafe nicht, ich ... (laufen)!' Введите текст..."></textarea>
-            <button onclick="generateText()">Сгенерировать СМС</button>
-            <div id="textOutput" class="preview-box"></div>
-
-            <label>11) Смайлики, стикеры, гифки</label>
-            <select id="emojiSelect">
-                <option value="🐾">🐾 Грязные отпечатки (Ошибка)</option>
-                <option value="🐁">🐁 Мышь-щекотуха</option>
-                <option value="🧢">🧢 Золотая кепка</option>
-                <option value="🆘">🆘 Сигнал SOS</option>
-                <option value="✨">✨ Магия роста</option>
-            </select>
-            <button onclick="addEmoji()">Добавить на экран</button>
-            <div id="emojiOutput" class="preview-box" style="font-size: 24px;"></div>
-        </div>
-
-        <div>
-            <h2>⚙ Экспорт для Genially</h2>
-            
-            <label>13) Генерация кода для Genially.com</label>
-            <button onclick="generateGeniallyCode()">Сгенерировать iframe/HTML код</button>
-            <textarea id="geniallyOutput" readonly style="min-height: 180px; margin-top: 10px; font-family: monospace;" placeholder="Здесь появится готовый код..."></textarea>
-        </div>
-    </div>
-
-</div>
-
-<script>
-    // 7. Фон (Файл)
-    document.getElementById("bgUpload").addEventListener("change", function(e){
-        let file = e.target.files[0];
-        if(file) {
-            let reader = new FileReader();
-            reader.onload = function() { document.body.style.backgroundImage = "url(" + reader.result + ")"; }
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // 7. Фон (URL)
-    function changeBgFromUrl() {
-        let url = document.getElementById("bgUrl").value;
-        if(url) document.body.style.backgroundImage = "url(" + url + ")";
-    }
-
-    // 8. Аудио (Файл и URL)
-    let audioPlayer = document.getElementById("audioPlayer");
-    document.getElementById("audioUpload").onchange = function(){
-        let file = this.files[0];
-        if(file) audioPlayer.src = URL.createObjectURL(file);
-    };
-    function loadAudioUrl() {
-        let url = document.getElementById("audioUrl").value;
-        if(url) audioPlayer.src = url;
-    }
-
-    // 9. Видео (Файл и URL)
-    let videoPlayer = document.getElementById("videoPlayer");
-    document.getElementById("videoUpload").onchange = function(){
-        let file = this.files[0];
-        if(file) videoPlayer.src = URL.createObjectURL(file);
-    };
-    function loadVideoUrl() {
-        let url = document.getElementById("videoUrl").value;
-        if(url) videoPlayer.src = url;
-    }
-
-    // 10. Генератор текста (СМС)
-    function generateText(){
-        let text = document.getElementById("textGenerator").value;
-        let output = document.getElementById("textOutput");
-        output.innerHTML = `<div style="background: #e1ffc7; padding: 10px; border-radius: 10px; display: inline-block; border: 1px solid #c8e6b1;">
-            <strong>💬 Новое СМС от Анфисы:</strong><br>${text}
-        </div>`;
-    }
-
-    // 11. Эмодзи
-    function addEmoji(){
-        let emoji = document.getElementById("emojiSelect").value;
-        document.getElementById("emojiOutput").innerHTML += emoji + " ";
-    }
-
-    // 12. Галерея роста Анфисы
-    document.getElementById("anfisaImages").onchange = function(){
-        let files = this.files;
-        let gallery = document.getElementById("anfisaGallery");
-        gallery.innerHTML = ""; // Очищаем перед новой загрузкой
-        for(let file of files){
-            let img = document.createElement("img");
-            img.src = URL.createObjectURL(file);
-            gallery.appendChild(img);
-        }
-    }
-
-    // Вспомогательная функция парсинга через запятую
-    function parseInput(id){
-        let text = document.getElementById(id).value;
-        return text ? text.split(",").map(x => x.trim()) : [];
-    }
-
-    // 13. Генератор кода Genially
-    function generateGeniallyCode() {
-        let food = parseInput("foodInput");
-        let verbs = parseInput("activityInput");
-        
-        // Формируем пример HTML/JSON-конфига для встраивания
-        let configData = {
-            concept: "Anfisa_A1_Verbs",
-            levels: {
-                food_items: food,
-                action_verbs: verbs
-            }
-        };
-
-        let geniallyHTML = `<div class="genially-embed-container" data-tamagotchi-config='${JSON.stringify(configData)}'>
-    <iframe style="width:100%; height:600px; border:none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);" 
-            src="Ваша_ссылка_на_игру_здесь" 
-            allow="autoplay; fullscreen; microphone">
-    </iframe>
-</div>`;
-        
-        document.getElementById("geniallyOutput").value = geniallyHTML;
-    }
-</script>
-
+      </section>
+    </main>
+  </div>
 </body>
 </html>
